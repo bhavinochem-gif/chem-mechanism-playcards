@@ -1,1 +1,8 @@
-
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+/tmp/
+*.pdf
+.DS_Store
