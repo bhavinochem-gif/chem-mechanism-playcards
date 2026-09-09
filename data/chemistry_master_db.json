@@ -1,1 +1,311 @@
-
+{
+  "version": "3.5.0",
+  "database_type": "Deterministic Offline Mechanistic Knowledge Graph",
+  "named_reactions": [
+    {
+      "id": "NR_001",
+      "name": "Suzuki-Miyaura Cross-Coupling",
+      "aliases": ["Suzuki coupling", "Suzuki reaction", "Pd-catalyzed biaryl synthesis"],
+      "class": "Palladium-Catalyzed Cross-Coupling",
+      "smarts": "[#6:1][Br,Cl,I,OS(=O)(=O)C(F)(F)F].[#6:2]B([OH,O#6])[OH,O#6]>>[#6:1][#6:2]",
+      "catalysts": ["Pd(PPh3)4", "Pd(dppf)Cl2", "Pd2(dba)3", "XPhos-Pd-G3", "SPhos-Pd-G3"],
+      "bases": ["K2CO3", "Cs2CO3", "K3PO4", "NaOH", "t-BuOK"],
+      "solvents": ["1,4-Dioxane/H2O", "DMF", "THF/H2O", "Toluene/EtOH/H2O"],
+      "kinetics": "First-order in aryl halide and Pd catalyst; RDS is oxidative addition (for chlorides) or transmetalation (for hindered boronic acids).",
+      "stereochemistry": "Strict retention of stereochemistry at alkenyl carbons (E/Z geometry preserved).",
+      "mechanism_steps": [
+        {
+          "step": 1,
+          "name": "Oxidative Addition",
+          "electron_source": "Pd(0) non-bonding d-orbital electrons",
+          "electron_sink": "C(sp2)-X sigma* antibonding orbital",
+          "intermediate": "trans-[Ar1-Pd(II)(L)2-X] complex",
+          "driving_force": "Thermodynamic formation of strong palladium-carbon coordination bonds."
+        },
+        {
+          "step": 2,
+          "name": "Base Activation & Transmetalation",
+          "electron_source": "Boronate hydroxy 'ate' complex [Ar2-B(OH)3]-",
+          "electron_sink": "Pd(II) coordination center",
+          "intermediate": "cis/trans-[Ar1-Pd(II)(L)2-Ar2] complex",
+          "driving_force": "High oxophilicity of boron driving stable borate salt formation."
+        },
+        {
+          "step": 3,
+          "name": "Reductive Elimination",
+          "electron_source": "Pd-Ar2 sigma bonding electrons",
+          "electron_sink": "Ar1-Pd coordination axis",
+          "intermediate": "Biaryl product + regenerated active Pd(0) catalyst",
+          "driving_force": "High thermodynamic stability of new C(sp2)-C(sp2) sigma bond."
+        }
+      ]
+    },
+    {
+      "id": "NR_002",
+      "name": "Buchwald-Hartwig Amination",
+      "aliases": ["Hartwig amination", "Pd-catalyzed C-N coupling", "Buchwald amination"],
+      "class": "Transition Metal Catalyzed C-N Coupling",
+      "smarts": "[c:1][Br,Cl,I,OS(=O)(=O)C(F)(F)F].[#7;H1,H2:2]>>[c:1][#7:2]",
+      "catalysts": ["Pd2(dba)3 / BINAP", "BrettPhos-Pd-G3", "RuPhos-Pd-G4", "Pd(OAc)2 / Xantphos"],
+      "bases": ["NaOtBu", "Cs2CO3", "LiHMDS", "K3PO4"],
+      "solvents": ["Toluene", "1,4-Dioxane", "t-Amyl alcohol"],
+      "kinetics": "Dependent on amine nucleophilicity and phosphine bite angle.",
+      "stereochemistry": "Ring configuration preserved; inversion/retention depends on chiral amine center.",
+      "mechanism_steps": [
+        {
+          "step": 1,
+          "name": "Oxidative Addition",
+          "electron_source": "Pd(0) d-electrons",
+          "electron_sink": "Aryl halide C-X sigma* orbital",
+          "intermediate": "[Ar-Pd(II)-X(L)]",
+          "driving_force": "Formation of Ar-Pd(II) coordination intermediate."
+        },
+        {
+          "step": 2,
+          "name": "Amine Coordination & Deprotonation",
+          "electron_source": "Strong alkoxide base (t-BuO-)",
+          "electron_sink": "Coordinated amine N-H proton",
+          "intermediate": "[Ar-Pd(II)-NR1R2(L)] amido complex",
+          "driving_force": "Irreversible salt precipitation (NaX or t-BuOH release)."
+        },
+        {
+          "step": 3,
+          "name": "Reductive Elimination",
+          "electron_source": "Pd-N sigma bond",
+          "electron_sink": "Aryl carbon coordination orbital",
+          "intermediate": "Aryl amine + regenerated Pd(0)",
+          "driving_force": "Thermodynamic bond strength of C(sp2)-N (bond energy ~305 kJ/mol)."
+        }
+      ]
+    },
+    {
+      "id": "NR_003",
+      "name": "Swern Oxidation",
+      "aliases": ["DMSO oxidation", "Oxalyl chloride DMSO oxidation"],
+      "class": "Mild Carbonyl Oxidation",
+      "smarts": "[#6:1][C:2]([#1:3])([OH:4])[#1,#6:5]>>[#6:1][C:2](=[O:4])[#1,#6:5]",
+      "reagents": ["Oxalyl chloride (COCl)2", "DMSO", "Triethylamine (Et3N)"],
+      "solvents": ["DCM"],
+      "kinetics": "Rapid at -78°C; completely avoids overoxidation to carboxylic acids.",
+      "stereochemistry": "Retains alpha-chiral stereocenters without epimerization.",
+      "mechanism_steps": [
+        {
+          "step": 1,
+          "name": "Chlorosulfonium Ion Generation",
+          "electron_source": "DMSO oxygen lone pair",
+          "electron_sink": "Oxalyl chloride carbonyl carbon",
+          "intermediate": "[Me2S+-Cl] Cl- + CO2(g) + CO(g)",
+          "driving_force": "Irreversible thermodynamic generation of CO2 and CO gases."
+        },
+        {
+          "step": 2,
+          "name": "Alkoxydimethylsulfonium Intermediate Formation",
+          "electron_source": "Alcohol hydroxyl oxygen lone pair",
+          "electron_sink": "Sulfur center of chlorosulfonium cation",
+          "intermediate": "[R1R2CH-O-S+Me2] Cl-",
+          "driving_force": "Displacement of chloride leaving group."
+        },
+        {
+          "step": 3,
+          "name": "Ylide Formation & Intramolecular Hydride Transfer",
+          "electron_source": "Triethylamine abstracts proton from S-methyl group",
+          "electron_sink": "Alkoxy alpha C-H proton via 5-membered cyclic transition state",
+          "intermediate": "Carbonyl product + Dimethyl sulfide (Me2S)",
+          "driving_force": "Release of stable volatile dimethyl sulfide and C=O formation."
+        }
+      ]
+    },
+    {
+      "id": "NR_004",
+      "name": "Diels-Alder [4+2] Cycloaddition",
+      "aliases": ["Diels Alder", "[4+2] cycloaddition"],
+      "class": "Pericyclic Reaction",
+      "smarts": "[#6:1]=[#6:2][#6:3]=[#6:4].[#6:5]=[#6:6]>>[#6:1]1[#6:2]=[#6:3][#6:4][#6:6][#6:5]1",
+      "catalysts": ["Thermal", "Lewis acids (AlCl3, BF3·OEt2, Sc(OTf)3)"],
+      "solvents": ["Toluene", "DCM", "Water (hydrophobic acceleration)"],
+      "kinetics": "Second-order; Rate = k[Diene][Dienophile].",
+      "stereochemistry": "Stereospecific syn-addition; Alder endo rule dominates under kinetic control.",
+      "mechanism_steps": [
+        {
+          "step": 1,
+          "name": "Concerted [4s + 2s] Suprafacial Overlap",
+          "electron_source": "Diene HOMO (psi-2)",
+          "electron_sink": "Dienophile LUMO (pi*)",
+          "intermediate": "Aromatic-like 6-electron cyclic transition state",
+          "driving_force": "Conversion of two high-energy pi bonds into two thermodynamically stable sigma bonds."
+        }
+      ]
+    },
+    {
+      "id": "NR_005",
+      "name": "Base-Catalyzed Aldol Condensation",
+      "aliases": ["Aldol reaction", "Aldol addition", "Claisen-Schmidt"],
+      "class": "Carbonyl Condensation",
+      "smarts": "[#6:1][C:2](=[O:3])[#1,#6:4].[#6:5][C:6](=[O:7])[#1,#6:8]>>[#6:1][C:2](=[O:3])[C:5]=[C:6]([#1,#6:8])",
+      "bases": ["NaOH", "KOH", "Ba(OH)2", "NaOMe", "NaOEt"],
+      "solvents": ["EtOH", "MeOH", "H2O"],
+      "kinetics": "Second-order; dependent on enolate formation rate.",
+      "stereochemistry": "E-alkene preferred thermodynamically upon dehydration.",
+      "mechanism_steps": [
+        {
+          "step": 1,
+          "name": "Enolate Generation",
+          "electron_source": "Base lone pair (OH-, OR-)",
+          "electron_sink": "Carbonyl alpha C-H sigma* orbital",
+          "intermediate": "Resonance-stabilized enolate carbanion",
+          "driving_force": "pKa equilibration (alpha-H pKa 16-20)."
+        },
+        {
+          "step": 2,
+          "name": "Nucleophilic Addition",
+          "electron_source": "Enolate alpha carbon electron pair",
+          "electron_sink": "Electrophilic carbonyl carbon pi* orbital",
+          "intermediate": "Tetrahedral alkoxide intermediate",
+          "driving_force": "Nucleophilic attack on polarized carbonyl dipole."
+        },
+        {
+          "step": 3,
+          "name": "E1cB Elimination (Dehydration)",
+          "electron_source": "Alpha-carbanion electron pair",
+          "electron_sink": "Beta C-O sigma* orbital expelling OH-",
+          "intermediate": "Conjugated alpha,beta-unsaturated enone/enal",
+          "driving_force": "Extended pi-system conjugation stabilization."
+        }
+      ]
+    },
+    {
+      "id": "NR_006",
+      "name": "Electrophilic Aromatic Substitution: Nitration",
+      "aliases": ["Nitration of benzene", "Aromatic nitration"],
+      "class": "Electrophilic Aromatic Substitution (EAS)",
+      "smarts": "c1ccccc1.O=[N+](=O)[O-]>>c1ccccc1[N+](=O)[O-]",
+      "reagents": ["HNO3", "H2SO4"],
+      "solvents": ["Neat acid", "Sulfolane", "DCM"],
+      "kinetics": "Second-order; Rate = k[Ar-H][NO2+].",
+      "stereochemistry": "Planar aromatic ring; preserves ring configuration.",
+      "mechanism_steps": [
+        {
+          "step": 1,
+          "name": "Nitronium Ion Generation",
+          "electron_source": "H2SO4 protonates HNO3",
+          "electron_sink": "Dehydration of H2NO3+ generating linear O=N+=O",
+          "intermediate": "Nitronium cation (NO2+)",
+          "driving_force": "Superacid dehydration thermodynamics."
+        },
+        {
+          "step": 2,
+          "name": "Arenium Ion Formation (RDS)",
+          "electron_source": "Aromatic ring pi electrons",
+          "electron_sink": "Nitronium nitrogen LUMO",
+          "intermediate": "Wheland arenium sigma-complex intermediate",
+          "driving_force": "Electrophilic attack (rate-limiting loss of aromaticity)."
+        },
+        {
+          "step": 3,
+          "name": "Rearomatization",
+          "electron_source": "HSO4- conjugate base lone pair",
+          "electron_sink": "sp3 ring C-H sigma* orbital",
+          "intermediate": "Neutral nitroarene product",
+          "driving_force": "Restoration of 152 kJ/mol aromatic stabilization energy."
+        }
+      ]
+    },
+    {
+      "id": "NR_007",
+      "name": "Bimolecular Nucleophilic Substitution (SN2)",
+      "aliases": ["SN2 substitution", "Walden inversion substitution"],
+      "class": "Nucleophilic Substitution",
+      "smarts": "[C:1][Br,Cl,I,OS(=O)(=O)[#6]:2].[#7,#8,#16,-:3]>>[C:1][#7,#8,#16:3]",
+      "solvents": ["DMF", "DMSO", "MeCN", "Acetone"],
+      "kinetics": "Rate = k[Substrate][Nucleophile] (Second-order).",
+      "stereochemistry": "100% Walden Inversion via 180° backside displacement.",
+      "mechanism_steps": [
+        {
+          "step": 1,
+          "name": "Concerted Backside Displacement",
+          "electron_source": "Nucleophile lone pair (HOMO)",
+          "electron_sink": "C-LG sigma* antibonding orbital (LUMO)",
+          "intermediate": "Pentacoordinate trigonal bipyramidal transition state",
+          "driving_force": "Bond formation thermodynamics and leaving group stability."
+        }
+      ]
+    },
+    {
+      "id": "NR_008",
+      "name": "Unimolecular Nucleophilic Substitution (SN1)",
+      "aliases": ["SN1 substitution", "Carbocation solvolysis"],
+      "class": "Nucleophilic Substitution",
+      "smarts": "[C;X4;$(C([#6])([#6])[#6]):1][Br,Cl,I,OS(=O)(=O)[#6]:2].[#7,#8,#16:3]>>[C:1][#7,#8,#16:3]",
+      "solvents": ["H2O", "MeOH", "EtOH", "TFE", "HFIP"],
+      "kinetics": "Rate = k[Substrate] (First-order).",
+      "stereochemistry": "Racemization with slight inversion bias due to intimate ion-pairing.",
+      "mechanism_steps": [
+        {
+          "step": 1,
+          "name": "Heterolytic C-LG Cleavage (RDS)",
+          "electron_source": "C-LG sigma-bonding electron pair",
+          "electron_sink": "Electronegative leaving group atom",
+          "intermediate": "Planar sp2 carbocation intermediate",
+          "driving_force": "Solvent dielectric stabilization and hyperconjugation."
+        },
+        {
+          "step": 2,
+          "name": "Nucleophilic Capture",
+          "electron_source": "Weak nucleophile lone pair",
+          "electron_sink": "Empty 2p orbital of carbocation",
+          "intermediate": "Protonated substitution adduct",
+          "driving_force": "Lewis acid-base coordination."
+        },
+        {
+          "step": 3,
+          "name": "Deprotonation",
+          "electron_source": "Solvent lone pair",
+          "electron_sink": "Acidic proton sigma* orbital",
+          "intermediate": "Neutral product",
+          "driving_force": "Proton transfer to solvent pool."
+        }
+      ]
+    }
+  ],
+  "pka_scales": [
+    {"name": "Triflic acid (TfOH)", "pka": -14.0, "type": "Superacid", "role": "Catalyst for Friedel-Crafts and glycosylations"},
+    {"name": "Hydrochloric acid (HCl)", "pka": -7.0, "type": "Strong Acid", "role": "Amine hydrochloride formation, acetal deprotection"},
+    {"name": "p-Toluenesulfonic acid (TsOH)", "pka": -2.8, "type": "Organic Strong Acid", "role": "Fischer esterification, dehydration"},
+    {"name": "Trifluoroacetic acid (TFA)", "pka": 0.23, "type": "Mildly Strong Acid", "role": "Boc deprotection, cleavage from resins"},
+    {"name": "Acetic acid (AcOH)", "pka": 4.76, "type": "Weak Acid", "role": "Buffer, reductive amination proton source"},
+    {"name": "Pyridinium p-toluenesulfonate (PPTS)", "pka": 5.21, "type": "Mild Buffer Acid", "role": "Selective THP deprotection"},
+    {"name": "Triethylamine (Et3N)", "pka": 10.75, "type": "Tertiary Amine Base", "role": "Acid scavenger, mesylation/tosylation"},
+    {"name": "DIPEA (Hünig's Base)", "pka": 11.4, "type": "Hindered Amine Base", "role": "Peptide coupling, cross-coupling base"},
+    {"name": "DBU", "pka": 12.0, "type": "Amidine Base", "role": "E2 eliminations, Michael additions"},
+    {"name": "Potassium tert-butoxide (t-BuOK)", "pka": 17.0, "type": "Bulky Alkoxide", "role": "Hofmann E2 eliminations"},
+    {"name": "LiHMDS", "pka": 29.5, "type": "Bulky Silyl Amide", "role": "Kinetic enolate generation"},
+    {"name": "LDA", "pka": 36.0, "type": "Hindered Amide Base", "role": "Selective deprotonation at -78°C"},
+    {"name": "n-Butyllithium (n-BuLi)", "pka": 50.0, "type": "Organolithium Superbase", "role": "Halogen-lithium exchange, alkyne deprotonation"}
+  ],
+  "protecting_groups": [
+    {
+      "name": "Boc (tert-Butyloxycarbonyl)",
+      "target": "Amines (1°, 2°)",
+      "cleavage_conditions": "TFA/DCM (1:1) or 4M HCl in Dioxane",
+      "stability": "Stable to bases, reducing agents, catalytic hydrogenation; acid-labile"
+    },
+    {
+      "name": "Fmoc (9-Fluorenylmethoxycarbonyl)",
+      "target": "Amines (1°, 2°)",
+      "cleavage_conditions": "20% Piperidine in DMF",
+      "stability": "Stable to strong acids; base-labile (E1cB mechanism)"
+    },
+    {
+      "name": "TBS / TBDMS (tert-Butyldimethylsilyl)",
+      "target": "Alcohols (1° > 2°)",
+      "cleavage_conditions": "TBAF in THF or HF·Pyridine",
+      "stability": "Stable to organometallics and mild oxidants; fluoride-labile"
+    },
+    {
+      "name": "Acetal / 1,3-Dioxolane",
+      "target": "Aldehydes and Ketones",
+      "cleavage_conditions": "Aqueous 1M HCl / Acetone or PPTS / wet acetone",
+      "stability": "Inert to bases, nucleophiles, and hydrides; acid-labile"
+    }
+  ]
+}
